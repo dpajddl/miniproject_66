@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Restaurant
+from .models import *
 from random import *
 
 def index_login(request):
@@ -19,7 +19,6 @@ def random_lunch(request):
     user_all = User.objects.all()
     i = randint(0, len(restaurant_all)-1)
     pick = restaurant_all[i]
-    
     return render(request, 'meal/random_lunch.html',
      {'restaurant_all' : restaurant_all, 'rest_kind_all' : rest_kind_all, 'pick' : pick})
 
