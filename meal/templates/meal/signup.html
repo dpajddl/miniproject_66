@@ -22,7 +22,7 @@
           <div class="field">
             <label class="label">UserID</label>
             <div class="control has-icons-right">
-              <input class="input" type="text">
+              <input class="input" type="text" id = "signup_id">
               <span class="icon is-small is-right">
                 <i class="fa fa-user"></i>
               </span>
@@ -31,7 +31,7 @@
           <div class="field">
             <label class="label">Nickname</label>
             <div class="control has-icons-right">
-              <input class="input" type="password">
+              <input class="input" type="text" id = "signup_nick">
               <span class="icon is-small is-right">
                 <i class="fab fa-github"></i>
               </span>
@@ -41,7 +41,7 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-right">
-              <input class="input" type="text">
+              <input class="input" type="text" id = "signup_email">
               <span class="icon is-small is-right">
                 <i class="fa fa-envelope"></i>
               </span>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="has-text-centered">
-            <a class="button is-vcentered is-primary is-outlined">Sign Up!</a>
+            <a class="button is-vcentered is-primary is-outlined" id = "signup_btn">Sign Up!</a>
           </div>
           <div class="has-text-centered">
             <a href="/"> Already have an account? Log in now !</a>
@@ -69,6 +69,26 @@
 
       </div>
     </div>
+    <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+  //$('[type = submit]').click(function(){})
+      $('[id = loginbtn]').click(() => {
+      $.ajax({
+          type : 'post',
+          url : 'login_function/',
+          data : {
+              'login_id' : $('[id = login_id]').val(),
+              'login_pw' : $('[id = login_pw]').val(),
+              'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
+          },
+          success: function(res){
+              if (res == 0) {location.href = "/meal"}
+              else if (res == 1) {alert("비밀번호를 확인해주세요.")}
+              else if (res == 2) {alert("아이디를 확인해주세요.")}
+          },
+        });
+      } )
+    </script>
 
   </body>
 </html>
