@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import *
 from random import *
+import json
+from django.forms.models import model_to_dict
+
+from json import JSONEncoder
 
 def index_login(request):
     return render(request, 'meal/index_login.html', {})
@@ -31,4 +35,18 @@ def signup(request):
 def something(request):
     return render(request, 'meal/something.html', {})
 
+def login_function(request) :
+    login_id = request.POST.get('login_id')
+    login_pw = request.POST.get('login_pw')
+    user_all = User.objects.all()
+    for i in range(len(user_all)):
+        if user_all[i].user_id == login_id:
+            if user_all[i].user_pw == login_pw:
+                obj = model_to_dict(user_all[i])
+                request.session['user'] = obj
+                return HttpResponse('0')
+            else :
+                return HttpResponse('1')
+        else :
+            return HttpResponse('2')
 # Create your views here.
