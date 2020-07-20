@@ -6,10 +6,12 @@ class Rest_kind(models.Model):
 
 class Restaurant(models.Model) :
     ##이거는 크롤링해서 바로 가져올 수 있는 친구들로 구성!
-    rest_num = models.IntegerField(default = -2) #카카오에서 제공하는 id가 있다.
+    rest_num = models.IntegerField(default = -2, primary_key=True) #카카오에서 제공하는 id가 있다.
     rest_name = models.CharField(max_length=500)
     rest_star = models.IntegerField(default = -3)
     rest_address = models.CharField(max_length=500)
+    rest_time = models.CharField(max_length=100, default = -1)
+    rest_tele = models.CharField(max_length=100, default = -1)
     rest_kind_name = models.ForeignKey(Rest_kind,on_delete=models.CASCADE) #kind_name으로 먹었던거 안먹는 로직 구현
     rest_detail_link = models.CharField(max_length=500) #상세보기 링크
     ##회원정보에서 가져온다.
