@@ -16,7 +16,8 @@
     <style>
         .section { position: absolute; left: 50%; transform: translateX(-50%); }
     </style>
-    <div>
+    <form>
+      {% csrf_token %}
       <div class="login column is-4 ">
         <section class="section">
           <div class="field">
@@ -51,7 +52,7 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-right">
-              <input class="input" type="password">
+              <input class="input" type="password" id = "signup_pw">
               <span class="icon is-small is-right">
                 <i class="fa fa-key"></i>
               </span>
@@ -68,23 +69,24 @@
       <div id="particles-js" class="interactive-bg column is-8">
 
       </div>
-    </div>
+    </form>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
   //$('[type = submit]').click(function(){})
-      $('[id = loginbtn]').click(() => {
+      $('[id = signup_btn]').click(() => {
       $.ajax({
           type : 'post',
-          url : 'login_function/',
+          url : '../../signup_function/',
           data : {
-              'login_id' : $('[id = login_id]').val(),
-              'login_pw' : $('[id = login_pw]').val(),
+              'signup_id' : $('[id = signup_id]').val(),
+              'signup_pw' : $('[id = signup_pw]').val(),
+              'signup_email' : $('[id = signup_email]').val(),
+              'signup_nick' : $('[id = signup_nick]').val(),              
               'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
           },
           success: function(res){
-              if (res == 0) {location.href = "/meal"}
-              else if (res == 1) {alert("비밀번호를 확인해주세요.")}
-              else if (res == 2) {alert("아이디를 확인해주세요.")}
+              if (res == 0) {alert("회원가입 완료!"); location.href = "/"}
+              else if (res == 1) {alert("이미 사용중인 ID입니다.")}
           },
         });
       } )

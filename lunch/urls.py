@@ -22,9 +22,11 @@ urlpatterns = [
     path('meal/', views.index, name = 'index'),
     path('meal/mylocation/', views.mylocation, name = 'mylocation'),
     path('meal/random_lunch/', views.random_lunch, name = 'random_lunch'),
+    path('random_lunch_again/', views.random_lunch, name = 'random_lunch_again'),
     path('meal/search_all/', views.search_all, name = 'search_all'),
     path('meal/something/', views.something, name = 'something'),
     path('meal/signup/', views.signup, name = 'signup'),
     path('', views.index_login, name = 'index_login'),
     path('login_function/', views.login_function, name = 'login_function'),
+    path('signup_function/', views.signup_function, name = 'signup_function'),
 ]
