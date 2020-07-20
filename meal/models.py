@@ -8,7 +8,7 @@ class Restaurant(models.Model) :
     ##이거는 크롤링해서 바로 가져올 수 있는 친구들로 구성!
     rest_num = models.IntegerField(primary_key=True) #카카오에서 제공하는 id가 있다.
     rest_name = models.CharField(max_length=500)
-    rest_star = models.IntegerField()
+    rest_star = models.FloatField()
     rest_address = models.CharField(max_length=500)
     rest_time = models.CharField(max_length=100)
     rest_tele = models.CharField(max_length=100)
