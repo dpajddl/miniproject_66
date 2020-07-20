@@ -18,6 +18,7 @@ class Restaurant(models.Model) :
     ##회원정보에서 가져온다.
 
 class User(models.Model):
+    objects = models.Manager()
     user_number = models.IntegerField(primary_key=True)
     user_id = models.CharField(max_length=200)
     user_pw = models.CharField(max_length=200)
@@ -26,6 +27,16 @@ class User(models.Model):
     user_last_kind = models.ForeignKey(Rest_kind, on_delete=models.CASCADE)
     uesr_loc_x = models.FloatField()
     uesr_loc_y = models.FloatField()
+    # def __init__(self, user_number = user_number, user_id=user_id, user_pw=user_pw, user_nick=user_nick, user_email = user_email, user_last_kind = user_last_kind, uesr_loc_x = uesr_loc_x, uesr_loc_y = uesr_loc_y):
+    #     self.user_number = user_number
+    #     self.user_id = user_id
+    #     self.user_pw = user_pw
+    #     self.user_nick = user_nick
+    #     self.user_email = user_email
+    #     self.user_last_kind = user_last_kind
+    #     self.uesr_loc_x = uesr_loc_x
+    #     self.uesr_loc_y = uesr_loc_y
+
     #user_craw_up = models.DateField(default = )
     
 
