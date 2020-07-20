@@ -26,4 +26,5 @@ urlpatterns = [
     path('meal/something/', views.something, name = 'something'),
     path('meal/signup/', views.signup, name = 'signup'),
     path('', views.index_login, name = 'index_login'),
+    path('login_function/', views.login_function, name = 'login_function'),
 ]
