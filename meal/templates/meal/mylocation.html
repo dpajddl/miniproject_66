@@ -66,7 +66,39 @@
                 <div class="columns is-vcentered">
                     <div class="column is-5">
                         <figure>
-                            <h1>카카오맵 API 이용해서 지도 넣기</h1>
+                            <div id="map" style="width:750px;height:350px;"></div>
+
+                            <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
+                            <script>
+                                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                                    mapOption = {
+                                        center: new kakao.maps.LatLng(37.4807936,126.8799593), // 지도의 중심좌표
+                                        level: 4, // 지도의 확대 레벨
+                                        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+                                    }; 
+                        
+                                // 지도를 생성한다 
+                                var map = new kakao.maps.Map(mapContainer, mapOption); 
+                        
+                                // 지도 타입 변경 컨트롤을 생성한다
+                                var mapTypeControl = new kakao.maps.MapTypeControl();
+                        
+                                // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+                                map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+                                var circle = new kakao.maps.Circle({
+                                    map: map, // 원을 표시할 지도 객체
+                                    center: new kakao.maps.LatLng(37.4807936,126.8799593), // 지도의 중심 좌표
+                                    radius : 200, // 원의 반지름 (단위 : m)
+                                    fillColor: '#acb3f0', // 채움 색
+                                    fillOpacity: 0.5, // 채움 불투명도
+                                    strokeWeight: 2, // 선의 두께
+                                    strokeColor: '#0c4bbd', // 선 색
+                                    strokeOpacity: 0.9, // 선 투명도 
+                                    strokeStyle: 'solid' // 선 스타일
+                                });	
+                        
+                            </script>
                         </figure>
                     </div>
                     <div class="column is-6 is-offset-1">
