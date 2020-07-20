@@ -13,7 +13,7 @@ class Restaurant(models.Model) :
     rest_time = models.CharField(max_length=100)
     rest_tele = models.CharField(max_length=100)
     rest_review = models.IntegerField()
-    rest_kind_num = models.ForeignKey(Rest_kind,on_delete=models.CASCADE) #kind_name으로 먹었던거 안먹는 로직 구현
+    rest_kind_num = models.ForeignKey(Rest_kind, on_delete=models.CASCADE) #kind_num으로 먹었던거 안먹는 로직 구현
     rest_detail_link = models.CharField(max_length=500) #상세보기 링크
     ##회원정보에서 가져온다.
 
