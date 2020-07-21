@@ -74,22 +74,19 @@
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
-                            <th>id</th><th>식당명</th><th>별점</th><th>주소</th><th>영업시간</th>
-                            <th>연락처</th><th>리뷰</th><th>업종</th>
+                            <th>id</th><th>식당명</th><th>주소</th>
+                            <th>연락처</th><th>거리</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% if restaurant_all %}
                             {% for r in restaurant_all %}
                             <tr>
-                                <td>{{r.rest_num}}</td>
-                                <td><a href="{{r.rest_detail_link}}">{{r.rest_name}}</a></td>
-                                <td>{{r.rest_star}}</td>
-                                <td>{{r.rest_address}}</td>
-                                <td>{{r.rest_time}}</td>
-                                <td>{{r.rest_tele}}</td>
-                                <td>{{r.rest_review}}</td>
-                                <td>{{r.rest_kind_num.res_kind_name}}</td>
+                                <td>{{r.id}}</td>
+                                <td><a href="{{r.place_url}}">{{r.place_name}}</a></td>
+                                <td>{{r.road_address_name}}</td>
+                                <td>{{r.phone}}</td>
+                                <td>{{r.distance}}m</td>
                                 <td></td>
                                 
                             </tr>

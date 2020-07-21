@@ -5,7 +5,8 @@ from .models import *
 from random import *
 import json
 from django.forms.models import model_to_dict
-
+import simplejson,requests
+import sys
 from json import JSONEncoder
 
 def index_login(request):
@@ -15,9 +16,29 @@ def index(request):
     return render(request, 'meal/index.html', {})
 
 def search_all(request):
-    restaurant_all = Restaurant.objects.all()
-    rest_kind_all = Rest_kind.objects.all()
-    return render(request, 'meal/search_all.html', {'rest_kind_all' : rest_kind_all,'restaurant_all' : restaurant_all})
+
+    url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
+    apikey = "0fd8917caae3b9798b5233596bbdd2e7"
+    x=126.88263620024
+    y=37.479966429878
+    
+    r = requests.get( url, params = {'query':'점심',
+            'category_group_code':'FD6',
+        'x':x,
+        'y':y,
+        'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+
+
+    obj=r.json()
+    counts=obj['meta']['total_count']
+    total_pages= counts//15 if counts%15 == 0 else counts //15+1
+    
+
+
+
+    restaurant_all=obj['documents']
+
+    return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
 def random_lunch(request):
     restaurant_all = Restaurant.objects.all()
