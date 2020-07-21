@@ -10,6 +10,8 @@ import sys
 from json import JSONEncoder
 import requests
 
+
+
 user_list = {}
 
 
@@ -153,6 +155,7 @@ def mylocation_function(request) :
         my_user.user_loc_y = yy
         my_user.save()
         return HttpResponse('0')
+
 
 
 
