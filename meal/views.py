@@ -41,8 +41,8 @@ def search_all(request):
         print(page+1)
         r = requests.get( url, params = {'query':'식당',
             'category_group_code':'FD6',
-            'x':'126.966256146762',
-        'y':'37.4775084271547',
+            'x': x,
+        'y': y,
         'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
         obj=r.json()
         docs=obj['documents']
