@@ -49,25 +49,8 @@ def random_lunch(request):
     i = randint(0, len(random_lunch)-1)
     pick = random_lunch[i]
 
-    counts=obj['meta']['total_count']
-    total_pages= counts//15 if counts%15 == 0 else counts //15+1
-    restaurant_all=obj['documents']
-    request.session['rest'] = restaurant_all
-    print(request.session['rest'])
-    return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
-
-def random_lunch(request):
-    random_lunch = request.session['rest']
-    print('='*10)
-    print(random_lunch)
-    print('='*10)
-
-    user_all = User.objects.all()
-    i = randint(0, len(random_lunch)-1)
-    pick = random_lunch[i]
-
     return render(request, 'meal/random_lunch.html',
-     {'restaurant_all' : restaurant_all, 'pick' : pick})  
+     {'restaurant_all' : random_lunch, 'pick' : pick})  
 
 def mylocation(request):
     return render(request, 'meal/mylocation.html', {})
