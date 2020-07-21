@@ -24,17 +24,33 @@ def search_all(request):
     apikey = "0fd8917caae3b9798b5233596bbdd2e7"
     x = request.session['user']['uesr_loc_x']
     y = request.session['user']['uesr_loc_y']
-    
+    restaurant_all=[]
     r = requests.get( url, params = {'query':'식당',
             'category_group_code':'FD6',
         'x':x,
         'y':y,
         'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
     obj=r.json()
+    print(obj)
 
-    counts=obj['meta']['total_count']
+    counts=obj['meta']['pageable_count']
     total_pages= counts//15 if counts%15 == 0 else counts //15+1
-    restaurant_all=obj['documents']
+    print(total_pages)
+
+    for page in range(total_pages):
+        print(page+1)
+        r = requests.get( url, params = {'query':'식당',
+            'category_group_code':'FD6',
+            'x':'126.966256146762',
+        'y':'37.4775084271547',
+        'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+        obj=r.json()
+        docs=obj['documents']
+        for doc in docs:
+            restaurant_all.append(doc)
+        
+
+
     request.session['rest'] = restaurant_all
     print(request.session['rest'])
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
