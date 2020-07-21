@@ -58,6 +58,7 @@
               </span>
             </div>
           </div>
+
           <div class="has-text-centered">
             <a class="button is-vcentered is-primary is-outlined" id = "signup_btn">Sign Up!</a>
           </div>
@@ -81,7 +82,7 @@
               'signup_id' : $('[id = signup_id]').val(),
               'signup_pw' : $('[id = signup_pw]').val(),
               'signup_email' : $('[id = signup_email]').val(),
-              'signup_nick' : $('[id = signup_nick]').val(),              
+              'signup_nick' : $('[id = signup_nick]').val(),           
               'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
           },
           success: function(res){
