@@ -9,6 +9,9 @@ import simplejson,requests
 import sys
 from json import JSONEncoder
 
+user_list = {}
+
+
 def index_login(request):
     return render(request, 'meal/index_login.html', {})
 
@@ -16,6 +19,7 @@ def index(request):
     return render(request, 'meal/index.html', {})
 
 def search_all(request):
+  
     url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
     apikey = "0fd8917caae3b9798b5233596bbdd2e7"
     x = request.session['user']['uesr_loc_x']
@@ -26,16 +30,28 @@ def search_all(request):
         'x':x,
         'y':y,
         'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
-
-
     obj=r.json()
+
+
     counts=obj['meta']['total_count']
-    total_pages= counts//15 if counts%15 == 0 else counts //15+1
+    if counts >45:
+        counts =45
     
+    restaurant_all=[]
 
-
-
-    restaurant_all=obj['documents']
+    total_pages= counts//15 if counts%15 == 0 else counts //15+1
+    for page in range(total_pages):
+        r = requests.get( url, params = {'query':'식당',
+                'category_group_code':'FD6',
+            'x':x,'y':y,
+            'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )    
+        obj=r.json()
+        print(obj)
+        print(type(obj))
+        docs=obj['documents']
+        for doc in docs:
+            restaurant_all.append(doc)        
+        
 
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 

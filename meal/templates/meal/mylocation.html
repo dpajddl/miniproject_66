@@ -70,11 +70,13 @@
 
                             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
                             <script>
+                                x = {{ request.session.user.uesr_loc_x }}
+                                y = {{ request.session.user.uesr_loc_y }}
                                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                                     mapOption = {
-                                        center: new kakao.maps.LatLng(37.480793, 126.882116), // 지도의 중심좌표
+                                        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
                                         level: 4, // 지도의 확대 레벨
-                                        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+                                        mapTypeId : kakao.maps.MapTypeId.ROADMAP// 지도종류 -->
                                     }; 
                         
                                 // 지도를 생성한다 
@@ -87,7 +89,7 @@
 
                                 var circle = new kakao.maps.Circle({
                                     map: map, // 원을 표시할 지도 객체
-                                    center: new kakao.maps.LatLng(37.480793, 126.882116), // 지도의 중심 좌표
+                                    center: new kakao.maps.LatLng(y, x), // 지도의 중심 좌표
                                     radius : 200, // 원의 반지름 (단위 : m)
                                     fillColor: '#acb3f0', // 채움 색
                                     fillOpacity: 0.5, // 채움 불투명도
@@ -101,7 +103,7 @@
                         </figure>
                     </div>
                     <div class="column is-6 is-offset-1">
-                        <input type="text"
+                        
                         <h1 class="title is-2">
                             뭐 넣을만한게 없을까?
                         </h1>
