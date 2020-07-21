@@ -27,16 +27,27 @@ def search_all(request):
         'x':x,
         'y':y,
         'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
-
-
     obj=r.json()
+
+
     counts=obj['meta']['total_count']
+    if counts >45:
+        counts =45
+
     total_pages= counts//15 if counts%15 == 0 else counts //15+1
-    
-
-
-
-    restaurant_all=obj['documents']
+    restaurant_all=[]
+    for page in range(total_pages):
+        r = requests.get( url, params = {'query':'점심',
+                'category_group_code':'FD6',
+            'x':x,'y':y,
+            'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )    
+        obj=r.json()
+        print(obj)
+        print(type(obj))
+        docs=obj['documents']
+        for doc in docs:
+            restaurant_all.append(doc)        
+        
 
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
