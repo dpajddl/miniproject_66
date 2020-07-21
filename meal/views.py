@@ -113,15 +113,14 @@ def signup_function(request) :
     if s_up == 0:
         param = {'query': signup_ad}
         header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
-        req = requests.get('https://dapi.kakao.com/v2/local/search/address.json', params=param, headers=header)
+        req = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', params=param, headers=header)
         obj = req.json()
         docs = obj['documents']
         if docs == []:
             return HttpResponse('2')
         else :
-            for doc in docs:
-                xx=doc['address']['x']
-                yy=doc['address']['y']
+            xx=docs[0]['x']
+            yy=docs[0]['y']
             user_loc_x = xx
             user_loc_y = yy
         
@@ -144,18 +143,16 @@ def mylocation_function(request) :
     mylocation_ad = request.GET.get('mylocation_ad')
     param = {'query': mylocation_ad}
     header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
-    req = requests.get('https://dapi.kakao.com/v2/local/search/address.json', params=param, headers=header)
+    req = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', params=param, headers=header)
     obj = req.json()
     docs = obj['documents']
     if docs == []:
         return HttpResponse('1')
     else :
-        for doc in docs:
-            xx=doc['address']['x']
-            yy=doc['address']['y']
-            print(type(xx))
-            print(doc)
-            print(xx, yy)
+     
+        xx=docs[0]['x']
+        yy=docs[0]['y']
+
         my_user.user_loc_x = xx
         my_user.user_loc_y = yy
         my_user.save()
