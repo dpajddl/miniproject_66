@@ -16,11 +16,10 @@ def index(request):
     return render(request, 'meal/index.html', {})
 
 def search_all(request):
-
     url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
     apikey = "0fd8917caae3b9798b5233596bbdd2e7"
-    x=126.88263620024
-    y=37.479966429878
+    x = request.session['user']['uesr_loc_x']
+    y = request.session['user']['uesr_loc_y']
     
     r = requests.get( url, params = {'query':'점심',
             'category_group_code':'FD6',
