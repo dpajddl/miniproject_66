@@ -74,20 +74,23 @@
                     <div class="column is-6 is-offset-1">
                         
                         <h1 class="title is-2">
+<<<<<<< HEAD
                             변경할 주소를 입력해주세요
+=======
+                            새 주소를 입력해 주세요
+>>>>>>> 8292d5637ea0176a961dc96aa1d2e8df0a2aa2db
                         </h1>
-                        <input type="text" class="subtitle is-4" id="update_ad">
-                    
+                            <input class="input is-medium" type="text" placeholder="New Place" id = "mylocation_ad">
+                        <br>
                         <br>
                         <p class="has-text-centered">
                             <a class="button is-warning is-medium" id ="update_btn" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
                             onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
                                 주소 변경
-                            </a><br><br>
-                            <a class="button is-warning is-medium" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
-                            onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
-                                흠..아냐 다시 고르자
-                            </a>
+                            </a><br>
+                            <h3 class = "subtitle is-size3">
+                                버튼 클릭 후 다시 로그인 하면 됩니다.
+                            </h3>
                         </p>
                     </div>
                 </div>
@@ -95,7 +98,21 @@
         </div>
     </section>
     <script src="../js/bulma.js"></script>
-    
+    <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $('[id = update_btn]').click(() => {
+            $.ajax({
+            type : 'get',
+            url : '../../mylocation_function/',
+            data : {
+            'mylocation_ad' : $('[id = mylocation_ad]').val()
+            },
+            success: function(res){
+                if (res == 0) {location.href = "../../"}
+            },
+        });
+      } )
+    </script>
 </body>
 
 </html>

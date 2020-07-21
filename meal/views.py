@@ -42,7 +42,7 @@ def search_all(request):
         r = requests.get( url, params = {'query':'식당',
             'category_group_code':'FD6',
             'x': x,
-        'y': y,
+        'y':y,
         'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
         obj=r.json()
         docs=obj['documents']
@@ -139,6 +139,24 @@ def last_kind_function(request) :
     request.session.user.user_last_kind = pick_kind
     user.save()
     return HttpResponse('0')
+
+def mylocation_function(request) :
+    my_user = User.objects.get(user_id = request.session['user']['user_id'])
+    mylocation_ad = request.GET.get('mylocation_ad')
+    param = {'query': mylocation_ad}
+    header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
+    req = requests.get('https://dapi.kakao.com/v2/local/search/address.json', params=param, headers=header)
+    obj = req.json()
+    docs = obj['documents']
+    for doc in docs:
+        xx=doc['address']['x']
+        yy=doc['address']['y']
+    my_id = request.session['user']['user_id']
+    my_user.uesr_loc_x = xx
+    my_user.uesr_loc_y = yy
+    my_user.save()
+    return HttpResponse('0')
+
 
 
 # Create your views here.
