@@ -66,27 +66,30 @@
                 <div class="columns is-vcentered">
                     <div class="column is-5">
                         <figure>
-                            <div id="map" style="width:750px;height:350px;"></div>
-
-                            <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
+                            <div id="map" style="width:500px;height:400px;"></div>
+                            <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
                             <script>
                                 x = {{ request.session.user.uesr_loc_x }}
                                 y = {{ request.session.user.uesr_loc_y }}
-                                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                                    mapOption = {
+                                var mapContainer = document.getElementById('map');// 지도를 표시할 div 
+                                var mapOption = {
                                         center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
                                         level: 4, // 지도의 확대 레벨
-                                        mapTypeId : kakao.maps.MapTypeId.ROADMAP// 지도종류 -->
+                    
                                     }; 
                         
                                 // 지도를 생성한다 
                                 var map = new kakao.maps.Map(mapContainer, mapOption); 
-                                // 지도 타입 변경 컨트롤을 생성한다
-                                var mapTypeControl = new kakao.maps.MapTypeControl();
-                        
-                                // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-                                map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+                                var markerPosition  = new kakao.maps.LatLng(y, x); //마커표시 위치 ->수정
 
+                                // 마커를 생성합니다
+                                var marker = new kakao.maps.Marker({
+                                    position: markerPosition
+                                });
+                                marker.setMap(map);
+
+                        
+        
                                 var circle = new kakao.maps.Circle({
                                     map: map, // 원을 표시할 지도 객체
                                     center: new kakao.maps.LatLng(y, x), // 지도의 중심 좌표
@@ -107,14 +110,13 @@
                         <h1 class="title is-2">
                             뭐 넣을만한게 없을까?
                         </h1>
-                        <h2 class="subtitle is-4">
-                            하나쯤은 있지 않을까..
-                        </h2>
+                        <input type="text" class="subtitle is-4" id="update_ad">
+                    
                         <br>
                         <p class="has-text-centered">
-                            <a class="button is-warning is-medium" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
+                            <a class="button is-warning is-medium" id ="update_btn" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
                             onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
-                                여기로 바뀌었어요
+                                주소 변경
                             </a><br><br>
                             <a class="button is-warning is-medium" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
                             onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
@@ -127,6 +129,7 @@
         </div>
     </section>
     <script src="../js/bulma.js"></script>
+    
 </body>
 
 </html>
