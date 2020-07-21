@@ -50,6 +50,7 @@ def something(request):
     return render(request, 'meal/something.html', {})
 
 def login_function(request) :
+    ln = 0
     login_id = request.POST.get('login_id')
     login_pw = request.POST.get('login_pw')
     user_all = User.objects.all()
@@ -61,6 +62,26 @@ def login_function(request) :
                 return HttpResponse('0')
             else :
                 return HttpResponse('1')
-        else :
-            return HttpResponse('2')
+            ln = 1
+    if ln == 0:
+        return HttpResponse('2')
+
+def signup_function(request) :
+    s_up = 0
+    signup_id = request.POST.get('signup_id')
+    signup_pw = request.POST.get('signup_pw')
+    signup_email = request.POST.get('signup_email')
+    signup_nick = request.POST.get('signup_nick')
+    user_all = User.objects.all()
+    for i in range(len(user_all)):
+        if user_all[i].user_id == signup_id:
+            return HttpResponse('1')
+            s_up = s_up + 1
+    if s_up == 0:
+        newbie = User(
+            user_id=signup_id, user_pw=signup_pw,
+            user_email=signup_email, user_nick = signup_nick)
+        newbie.save();
+        return HttpResponse('0')
+
 # Create your views here.

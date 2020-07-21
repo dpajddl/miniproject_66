@@ -28,4 +28,5 @@ urlpatterns = [
     path('meal/signup/', views.signup, name = 'signup'),
     path('', views.index_login, name = 'index_login'),
     path('login_function/', views.login_function, name = 'login_function'),
+    path('signup_function/', views.signup_function, name = 'signup_function'),
 ]
