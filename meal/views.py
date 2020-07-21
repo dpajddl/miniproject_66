@@ -20,23 +20,15 @@ def search_all(request):
     apikey = "0fd8917caae3b9798b5233596bbdd2e7"
     x = request.session['user']['uesr_loc_x']
     y = request.session['user']['uesr_loc_y']
-    
     r = requests.get( url, params = {'query':'점심',
             'category_group_code':'FD6',
         'x':x,
         'y':y,
         'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
-
-
     obj=r.json()
     counts=obj['meta']['total_count']
     total_pages= counts//15 if counts%15 == 0 else counts //15+1
-    
-
-
-
     restaurant_all=obj['documents']
-
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
 def random_lunch(request):
