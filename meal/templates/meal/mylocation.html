@@ -69,8 +69,8 @@
                             <div id="map" style="width:500px;height:400px;"></div>
                             <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
                             <script>
-                                x = {{ request.session.user.uesr_loc_x }}
-                                y = {{ request.session.user.uesr_loc_y }}
+                                x = {{ request.session.user.user_loc_x }}
+                                y = {{ request.session.user.user_loc_y }}
                                 var mapContainer = document.getElementById('map');// 지도를 표시할 div 
                                 var mapOption = {
                                         center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
@@ -140,6 +140,7 @@
             },
             success: function(res){
                 if (res == 0) {location.href = "../../"}
+                else if (res == 1){alert("주소를 다시 확인해 주세요.")}
             },
         });
       } )
