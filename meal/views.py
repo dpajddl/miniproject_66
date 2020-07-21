@@ -8,6 +8,7 @@ from django.forms.models import model_to_dict
 import simplejson,requests
 import sys
 from json import JSONEncoder
+import requests
 
 user_list = {}
 
@@ -26,14 +27,9 @@ def search_all(request):
 
 def random_lunch(request):
     random_lunch = request.session['rest']
-    print('='*10)
-    print(random_lunch)
-    print('='*10)
-
     user_all = User.objects.all()
     i = randint(0, len(random_lunch)-1)
     pick = random_lunch[i]
-
     return render(request, 'meal/random_lunch.html',
      {'pick' : pick})
 
@@ -96,7 +92,6 @@ def login_function(request) :
         return HttpResponse('2')
 
 def signup_function(request) :
-    import requests
     s_up = 0
     signup_id = request.POST.get('signup_id')
     signup_pw = request.POST.get('signup_pw')
