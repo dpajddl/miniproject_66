@@ -24,9 +24,9 @@ class User(models.Model):
     user_pw = models.CharField(max_length=200)
     user_nick = models.CharField(max_length=100)
     user_email = models.CharField(max_length=500)
-    user_last_kind = models.ForeignKey(Rest_kind, on_delete=models.CASCADE)
-    uesr_loc_x = models.FloatField()
-    uesr_loc_y = models.FloatField()
+    user_last_kind = models.ForeignKey(Rest_kind, on_delete=models.CASCADE, default = 1)
+    uesr_loc_x = models.FloatField(default = 100)
+    uesr_loc_y = models.FloatField(default = 100)
     # def __init__(self, user_number = user_number, user_id=user_id, user_pw=user_pw, user_nick=user_nick, user_email = user_email, user_last_kind = user_last_kind, uesr_loc_x = uesr_loc_x, uesr_loc_y = uesr_loc_y):
     #     self.user_number = user_number
     #     self.user_id = user_id
