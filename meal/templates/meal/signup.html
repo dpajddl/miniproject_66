@@ -58,6 +58,16 @@
               </span>
             </div>
           </div>
+
+          <div class="field">
+            <label class="label">Address</label>
+            <div class="control has-icons-right">
+              <input class="input" type="text" id = "signup_ad">
+              <span class="icon is-small is-right">
+                <i class="fa fa-envelope"></i>
+              </span>
+            </div>
+          </div>
           <div class="has-text-centered">
             <a class="button is-vcentered is-primary is-outlined" id = "signup_btn">Sign Up!</a>
           </div>
@@ -72,7 +82,6 @@
     </form>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-  //$('[type = submit]').click(function(){})
       $('[id = signup_btn]').click(() => {
       $.ajax({
           type : 'post',
@@ -81,7 +90,8 @@
               'signup_id' : $('[id = signup_id]').val(),
               'signup_pw' : $('[id = signup_pw]').val(),
               'signup_email' : $('[id = signup_email]').val(),
-              'signup_nick' : $('[id = signup_nick]').val(),              
+              'signup_nick' : $('[id = signup_nick]').val(),
+              'signup_ad' : $('[id = signup_ad]').val(),                 
               'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
           },
           success: function(res){
