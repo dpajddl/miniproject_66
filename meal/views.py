@@ -60,19 +60,7 @@ def random_lunch(request):
     i = randint(0, len(restaurant_all)-1)
     pick = restaurant_all[i]
     return render(request, 'meal/random_lunch.html',
-     {'restaurant_all' : restaurant_all, 'rest_kind_all' : rest_kind_all, 'pick' : pick})
-
-def random_lunch(request):
-    
-    restaurant_all = Restaurant.objects.all()
-    rest_kind_all = Rest_kind.objects.all()
-    user_all = User.objects.all()
-    i = randint(0, len(restaurant_all)-1)
-    pick = restaurant_all[i]
-    
-    
-    return render(request,'meal/random_lunch.html',
-     {'i' : i, 'restaurant_all' : restaurant_all, 'rest_kind_all' : rest_kind_all, 'pick' : pick})     
+     {'restaurant_all' : restaurant_all, 'pick' : pick})  
 
 def mylocation(request):
     return render(request, 'meal/mylocation.html', {})
