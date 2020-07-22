@@ -85,6 +85,7 @@ def login_function(request) :
                     docs=obj['documents']
                     for doc in docs:
                         restaurant_all.append(doc)
+
                 request.session['rest'] = restaurant_all
                 return HttpResponse('0')
             else :
