@@ -9,7 +9,7 @@ import simplejson,requests
 import sys
 from json import JSONEncoder
 import requests
-
+import bcrypt
 
 
 user_list = {}
@@ -59,7 +59,7 @@ def login_function(request) :
     user_all = User.objects.all()
     for i in range(len(user_all)):
         if user_all[i].user_id == login_id:
-            if user_all[i].user_pw == login_pw:
+            if bcrypt.checkpw(login_pw.encode('utf-8'), user_all[i].user_pw.encode('utf-8')):
                 obj = model_to_dict(user_all[i])
                 request.session['user'] = obj
                 url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
@@ -102,6 +102,9 @@ def signup_function(request) :
     signup_nick = request.POST.get('signup_nick')
     signup_ad = request.POST.get('signup_ad')
     user_all = User.objects.all()
+    signup_pw = signup_pw.encode('utf-8')   # 회원가입 시 입력된 패스워드를 바이트 형태로 인코딩    
+    signup_pw_crypt = bcrypt.hashpw(signup_pw, bcrypt.gensalt())  # 암호화된 비밀번호 생성
+    signup_pw_crypt = signup_pw_crypt.decode('utf-8')             # DB에 저장할 수 있는 유니코드 문자열 형태로 디코딩
     for i in range(len(user_all)):
         if user_all[i].user_id == signup_id:
             return HttpResponse('1')
@@ -121,7 +124,7 @@ def signup_function(request) :
             user_loc_y = yy
         
         newbie = User(
-            user_id=signup_id, user_pw=signup_pw,
+            user_id=signup_id, user_pw=signup_pw_crypt,
             user_email=signup_email, user_nick = signup_nick,
             user_loc_x = user_loc_x, user_loc_y = user_loc_y)
         newbie.save();
