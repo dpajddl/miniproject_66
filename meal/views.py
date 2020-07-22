@@ -200,3 +200,15 @@ def findid_function(request):
         # return render(request, 'meal/findid.html', {'user':user_all[i]}) 
     except:
         return JsonResponse({'result':'fail'}, safe=False)
+
+def findpw_function(request):
+    findpw_nick = request.POST.get('findpw_nick')
+    findpw_email = request.POST.get('findpw_email')
+    findpw_id = request.POST.get('findpw_id')
+
+    # 해당 데이터만 조회
+    try:
+        user = User.objects.get(user_nick=findpw_nick, user_email=findpw_email, user_id = findpw_id)
+        return JsonResponse(model_to_dict(user), safe=False)
+    except:
+        return JsonResponse({'result':'fail'}, safe=False)
