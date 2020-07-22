@@ -23,7 +23,7 @@
           <div class="field">
             <label class="label">Nickname</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_nick">
+              <input class="input" type="text" id = "findpw_nick">
               <span class="icon is-small is-right">
                 <i class="fab fa-github"></i>
               </span>
@@ -33,7 +33,7 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_email">
+              <input class="input" type="text" id = "findpw_email">
               <span class="icon is-small is-right">
                 <i class="fa fa-envelope"></i>
               </span>
@@ -43,7 +43,7 @@
           <div class="field">
             <label class="label">ID</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_email">
+              <input class="input" type="text" id = "findpw_id">
               <span class="icon is-small is-right">
                 <i class="fa fa-envelope"></i>
               </span>
@@ -59,5 +59,28 @@
       </div>
     </form>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $('[id = findpw_btn]').click(() => {
+        $.ajax({
+            type : 'post',
+            url : '../../findpw_function/',
+            data : {
+                'findpw_name' : $('[id = findpw_name]').val(),
+                'findpw_email' : $('[id = findpw_emai]').val(),
+                'findpw_id' : $('[id = findpw_id]').val(),     
+                'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
+            },
+            success: function(res){
+        if(res.result) {
+          alert("입력하신 닉네임 또는 이메일 또는 아이다가 올바르지 않습니다.")
+        } else {
+          if(confirm("password는" + res.user_pw + "입니다."))   
+            {location.href = "../../"}
+          else  
+	          return false;
+            },
+          });
+        } )
+      </script>
   </body>
 </html>

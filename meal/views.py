@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .models import *
 from random import *
@@ -26,7 +26,7 @@ def index(request):
 def search_all(request):
     # 페이징
     # 1 - 현재 페이지 정보 get
-    # page = request.GET.get('page')
+    page = request.GET.get('page')
 
     # 2 - page에 해당하는 식당의 (리스트 상의) 시작번호와 끝번호를 알아내기
     # startRow = 0
@@ -212,8 +212,14 @@ def having_function(request):
     my_user.save()
     return HttpResponse('0')
 
-
-
-
-
-# Create your views here.
+def findid_function(request):
+    findid_nick = request.POST.get('findid_nick')
+    findid_email = request.POST.get('findid_email')
+    
+    # 해당 데이터만 조회
+    try:
+        user = User.objects.get(user_nick=findid_nick, user_email=findid_email)
+        return JsonResponse(model_to_dict(user), safe=False)
+        # return render(request, 'meal/findid.html', {'user':user_all[i]}) 
+    except:
+        return JsonResponse({'result':'fail'}, safe=False)
