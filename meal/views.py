@@ -174,6 +174,7 @@ def mylocation_function(request) :
         my_user.user_loc_x = xx
         my_user.user_loc_y = yy
         my_user.save()
+        
         return HttpResponse('0')
 
 def having_function(request):
