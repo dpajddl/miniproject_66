@@ -120,7 +120,7 @@
                         </h2>
                         <br>
                         <p class="has-text-centered">
-                            <a class="button is-primary is-medium is-outlined" id = "enjoybtn">
+                            <a class="button is-primary is-medium is-outlined" id = "enjoybtn" onClick = >
                                 좋아! 오늘은 이거다!
                             </a><br><br>
                             <a class="button is-primary is-medium is-outlined"  onClick="window.location.reload()">
@@ -136,7 +136,18 @@
     </section>
     <script src="../js/bulma.js"></script>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script></script>
+    <script>
+      $('[id = enjoybtn]').click(() => {
+      $.ajax({
+          type : 'get',
+          url : '../../having_function/',
+          data : {},
+          success: function(res){
+              alert("맛있는 식사 하세요 ^^")
+          },
+        });
+      } )
+    </script>
 </body>
 
 </html>

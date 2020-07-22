@@ -30,10 +30,17 @@ def search_all(request):
 def random_lunch(request):
     random_lunch = request.session['rest']
     user_all = User.objects.all()
-    i = randint(0, len(random_lunch)-1)
-    pick = random_lunch[i]
-    return render(request, 'meal/random_lunch.html',
-     {'pick' : pick})
+
+    while(True) : 
+        my_user = User.objects.get(user_id = request.session['user']['user_id'])
+        i = randint(0, len(random_lunch)-1)
+        pick = random_lunch[i]
+        if my_user.user_last_kind == pick['id']:
+            pass
+        else :
+            request.session['pick'] = pick
+            return render(request, 'meal/random_lunch.html',
+            {'pick' : pick})
 
 
 def mylocation(request):
@@ -66,14 +73,9 @@ def login_function(request) :
                     'y':y,
                     'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
                 obj=r.json()
-                print(obj)
-
                 counts=obj['meta']['pageable_count']
                 total_pages= counts//15 if counts%15 == 0 else counts //15+1
-                print(total_pages)
-
                 for page in range(total_pages):
-                    print(page+1)
                     r = requests.get( url, params = {'query':'식당',
                         'category_group_code':'FD6',
                         'x': x,
@@ -83,9 +85,7 @@ def login_function(request) :
                     docs=obj['documents']
                     for doc in docs:
                         restaurant_all.append(doc)
-                        
                 request.session['rest'] = restaurant_all
-                print(request.session['rest'])
                 return HttpResponse('0')
             else :
                 return HttpResponse('1')
@@ -108,15 +108,14 @@ def signup_function(request) :
     if s_up == 0:
         param = {'query': signup_ad}
         header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
-        req = requests.get('https://dapi.kakao.com/v2/local/search/address.json', params=param, headers=header)
+        req = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', params=param, headers=header)
         obj = req.json()
         docs = obj['documents']
         if docs == []:
             return HttpResponse('2')
         else :
-            for doc in docs:
-                xx=doc['address']['x']
-                yy=doc['address']['y']
+            xx=docs[0]['x']
+            yy=docs[0]['y']
             user_loc_x = xx
             user_loc_y = yy
         
@@ -128,33 +127,39 @@ def signup_function(request) :
         return HttpResponse('0')
     
 
-def last_kind_function(request) :
-    pick_kind = request.get('pick_kind')
-    request.session.user.user_last_kind = pick_kind
-    user.save()
-    return HttpResponse('0')
+# def last_kind_function(request) :
+#     pick_kind = request.get('pick_kind')
+#     request.session.user.user_last_kind = pick_kind
+#     user.save()
+#     return HttpResponse('0')
 
 def mylocation_function(request) :
     my_user = User.objects.get(user_id = request.session['user']['user_id'])
     mylocation_ad = request.GET.get('mylocation_ad')
     param = {'query': mylocation_ad}
     header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
-    req = requests.get('https://dapi.kakao.com/v2/local/search/address.json', params=param, headers=header)
+    req = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', params=param, headers=header)
     obj = req.json()
     docs = obj['documents']
     if docs == []:
         return HttpResponse('1')
     else :
-        for doc in docs:
-            xx=doc['address']['x']
-            yy=doc['address']['y']
-            print(type(xx))
-            print(doc)
-            print(xx, yy)
+     
+        xx=docs[0]['x']
+        yy=docs[0]['y']
+
         my_user.user_loc_x = xx
         my_user.user_loc_y = yy
         my_user.save()
         return HttpResponse('0')
+
+def having_function(request):
+    last_id = request.session['pick']['id']
+    my_user = User.objects.get(user_id = request.session['user']['user_id'])
+    my_user.user_last_kind = last_id
+    my_user.save()
+    return HttpResponse('0')
+
 
 
 
