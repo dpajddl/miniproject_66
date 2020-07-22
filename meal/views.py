@@ -22,7 +22,17 @@ def index(request):
     return render(request, 'meal/index.html', {})
 
 def search_all(request):
-    restaurant_all = request.session['rest']
+    # 페이징
+    # 1 - 현재 페이지 정보 get
+    # page = request.GET.get('page')
+
+    # 2 - page에 해당하는 식당의 (리스트 상의) 시작번호와 끝번호를 알아내기
+    # startRow = 0
+    # endRow = 0
+    
+    # restaurant_all = request.session['rest']
+    # restaurant_all = restaurant_all[0:10]
+
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
 
