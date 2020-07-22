@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .models import *
 from random import *
@@ -180,8 +180,14 @@ def having_function(request):
     my_user.save()
     return HttpResponse('0')
 
-def checkid_function(request):
-    findid_name = request.POST.get('findid_name')
+def findid_function(request):
+    findid_nick = request.POST.get('findid_nick')
     findid_email = request.POST.get('findid_email')
-    user_all = User.objects.all()
-# def checkpw_functino(request):
+    
+    # 해당 데이터만 조회
+    try:
+        user = User.objects.get(user_nick=findid_nick, user_email=findid_email)
+        return JsonResponse(model_to_dict(user), safe=False)
+        # return render(request, 'meal/findid.html', {'user':user_all[i]}) 
+    except:
+        return JsonResponse({'result':'fail'}, safe=False)
