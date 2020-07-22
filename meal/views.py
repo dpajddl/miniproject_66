@@ -11,20 +11,17 @@ from json import JSONEncoder
 import requests
 import bcrypt
 
-
-user_list = {}
-
-
 def index_login(request):
     return render(request, 'meal/index_login.html', {})
 
 def index(request):
-    last1 = request.session['user']['user_last_name1']
-    last2 = request.session['user']['user_last_name2']
-    last3 = request.session['user']['user_last_name3']
-    last4 = request.session['user']['user_last_name4']
-    last5 = request.session['user']['user_last_name5']
-    return render(request, 'meal/index.html', {'last1' : last1, 'last2' : last2, 'last3' : last3, 'last4' : last4, 'last5' : last5})
+    my_user = User.objects.get(user_id = request.session['user']['user_id'])
+    last1 = my_user.user_last_name1
+    last2 = my_user.user_last_name2
+    last3 = my_user.user_last_name3
+    last4 = my_user.user_last_name4
+    last5 = my_user.user_last_name5
+    return render(request, 'meal/index.html', {'last1' : last1, 'last2' : last2, 'last3' : last3, 'last4' : last4, 'last5' : last5, 'my_user' : my_user})
 
 def search_all(request):
     # 페이징
@@ -59,7 +56,8 @@ def random_lunch(request):
 
 
 def mylocation(request):
-    return render(request, 'meal/mylocation.html', {})
+    my_user = User.objects.get(user_id = request.session['user']['user_id'])
+    return render(request, 'meal/mylocation.html', {'my_user' : my_user})
 
 def signup(request):
     return render(request, 'meal/signup.html', {})
