@@ -65,36 +65,30 @@
     <selection class = "hero">
         <div class="hero-body">
             <div class="container has-text-centered">
-                <div class="columns is-vcentered">
-                    <div class="column is-5">
-                        <iframe src="{{pick.place_url}}" width="1300px" height="600px"></iframe>
-                            
-                    </div>
-                    
-                </div>
-                <div class="column is-6 is-offset-1">
-                    <!-- <h1 class="title is-2">
-                        {{pick.place_name}}
-                    </h1>
-                    <h2 class="subtitle is-4">
-                        {{pick.category_name}}
-                    </h2> -->
-                    <br>
-                    <p class="has-text-centered column is-vcentered">
-                        <a class="button is-primary is-medium is-outlined" id = "enjoybtn" onClick = >
+                <div class="columns is-4 is-multiline">
+                    <iframe src="{{pick.place_url}}" width="840px" height="600px"></iframe>                             
+                    <div style = "margin-left: 50px; margin-top: 80px">
+                        <div  id="map" style="width:400px;height:300px;"></div><br>
+                        <a class="button is-primary is-medium is-outlined" id = "enjoybtn">
                             좋아! 오늘은 이거다!
-                        </a>
+                        </a><br><br>
                         <a class="button is-primary is-medium is-outlined"  onClick="window.location.reload()">
                             흠..아냐 다시 고르자
-                            
-
                         </a>
-                    </p>
-                   
+                    </div>
                 </div>
             </div>
+            <section class="container is-auto">
+                <div class = "container has-text-right" id="map" style="width:400px;height:300px;"></div><br>
+                <a class="button is-primary is-medium is-outlined" id = "enjoybtn" onClick = >
+                    좋아! 오늘은 이거다!
+                </a><br><br>
+                <a class="button is-primary is-medium is-outlined"  onClick="window.location.reload()">
+                    흠..아냐 다시 고르자
+                </a>
+            </section>
         </div>
-        <!-- <div id="map" style="width:500px;height:400px;"></div> -->
+
 
                             
     <script src="../js/bulma.js"></script>
@@ -106,7 +100,7 @@
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng(y,x), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+            level: 4 // 지도의 확대 레벨
         };
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
