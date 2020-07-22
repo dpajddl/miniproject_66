@@ -19,10 +19,25 @@ def index_login(request):
     return render(request, 'meal/index_login.html', {})
 
 def index(request):
-    return render(request, 'meal/index.html', {})
+    last1 = request.session['user']['user_last_name1']
+    last2 = request.session['user']['user_last_name2']
+    last3 = request.session['user']['user_last_name3']
+    last4 = request.session['user']['user_last_name4']
+    last5 = request.session['user']['user_last_name5']
+    return render(request, 'meal/index.html', {'last1' : last1, 'last2' : last2, 'last3' : last3, 'last4' : last4, 'last5' : last5})
 
 def search_all(request):
+    # 페이징
+    # 1 - 현재 페이지 정보 get
+    # page = request.GET.get('page')
+
+    # 2 - page에 해당하는 식당의 (리스트 상의) 시작번호와 끝번호를 알아내기
+    # startRow = 0
+    # endRow = 0
+    
     restaurant_all = request.session['rest']
+    # restaurant_all = restaurant_all[0:10]
+
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
 
@@ -51,6 +66,12 @@ def signup(request):
 
 def something(request):
     return render(request, 'meal/something.html', {})
+
+def findid(request):
+    return render(request, 'meal/findid.html', {})
+
+def findpw(request):
+    return render(request, 'meal/findpw.html', {})
 
 def login_function(request) :
     ln = 0
@@ -158,9 +179,15 @@ def mylocation_function(request) :
         return HttpResponse('0')
 
 def having_function(request):
-    last_id = request.session['pick']['id']
+    last_name = request.session['pick']['place_name']
+    last_kind = request.session['pick']['id']
     my_user = User.objects.get(user_id = request.session['user']['user_id'])
-    my_user.user_last_kind = last_id
+    my_user.user_last_name5 = my_user.user_last_name4
+    my_user.user_last_name4 = my_user.user_last_name3
+    my_user.user_last_name3 = my_user.user_last_name2
+    my_user.user_last_name2 = my_user.user_last_name1
+    my_user.user_last_name1 = last_name
+    my_user.user_last_kind = last_kind
     my_user.save()
     return HttpResponse('0')
 
