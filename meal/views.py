@@ -9,7 +9,7 @@ import simplejson,requests
 import sys
 from json import JSONEncoder
 import requests
-
+import bcrypt
 
 
 user_list = {}
@@ -101,6 +101,8 @@ def signup_function(request) :
     signup_nick = request.POST.get('signup_nick')
     signup_ad = request.POST.get('signup_ad')
     user_all = User.objects.all()
+    signup_pw_encoded = bcrypt.hashpw(signup_pw.encode('utf-8'), bcrypt.gensalt())
+
     for i in range(len(user_all)):
         if user_all[i].user_id == signup_id:
             return HttpResponse('1')
