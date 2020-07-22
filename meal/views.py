@@ -62,6 +62,12 @@ def signup(request):
 def something(request):
     return render(request, 'meal/something.html', {})
 
+def findid(request):
+    return render(request, 'meal/findid.html', {})
+
+def findpw(request):
+    return render(request, 'meal/findpw.html', {})
+
 def login_function(request) :
     ln = 0
     login_id = request.POST.get('login_id')
