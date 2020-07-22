@@ -23,7 +23,7 @@
           <div class="field">
             <label class="label">Nickname</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_nick">
+              <input class="input" type="text" id = "findid_nick">
               <span class="icon is-small is-right">
                 <i class="fab fa-github"></i>
               </span>
@@ -33,14 +33,14 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_email">
+              <input class="input" type="text" id = "findid_email">
               <span class="icon is-small is-right">
                 <i class="fa fa-envelope"></i>
               </span>
             </div>
           </div>
           <div class="has-text-centered">
-            <a class="button is-vcentered is-primary is-outlined" id = "findid_btn">Find ID!</a>
+            <a class="button is-vcentered is-primary is-outlined" id="findid_btn">Find ID!</a>
           </div>
         </section>
       </div>
@@ -50,4 +50,29 @@
     </form>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
   </body>
+</html>
+<script>
+  $('[id = findid_btn]').click(() => {
+  $.ajax({
+      type : 'post',
+      url : '/findid_function/',
+      data : {
+          'findid_nick' : $('[id = findid_nick]').val(),
+          'findid_email' : $('[id = findid_email]').val(),   
+          'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
+      },
+      success: function(res){
+        if(res.result) {
+          alert("입력하신 닉네임 또는 이메일이 올바르지 않습니다.")
+        } else {
+          if(confirm("ID는" + res.user_id + "입니다."))   
+            {location.href = "../../"}
+          else  
+	          return false;
+        }
+      },
+    }); 
+  })
+</script>
+</body>
 </html>
