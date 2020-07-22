@@ -19,7 +19,12 @@ def index_login(request):
     return render(request, 'meal/index_login.html', {})
 
 def index(request):
-    return render(request, 'meal/index.html', {})
+    last1 = request.session['user']['user_last_name1']
+    last2 = request.session['user']['user_last_name2']
+    last3 = request.session['user']['user_last_name3']
+    last4 = request.session['user']['user_last_name4']
+    last5 = request.session['user']['user_last_name5']
+    return render(request, 'meal/index.html', {'last1' : last1, 'last2' : last2, 'last3' : last3, 'last4' : last4, 'last5' : last5})
 
 def search_all(request):
     # 페이징
@@ -174,9 +179,15 @@ def mylocation_function(request) :
         return HttpResponse('0')
 
 def having_function(request):
-    last_id = request.session['pick']['id']
+    last_name = request.session['pick']['place_name']
+    last_kind = request.session['pick']['id']
     my_user = User.objects.get(user_id = request.session['user']['user_id'])
-    my_user.user_last_kind = last_id
+    my_user.user_last_name5 = my_user.user_last_name4
+    my_user.user_last_name4 = my_user.user_last_name3
+    my_user.user_last_name3 = my_user.user_last_name2
+    my_user.user_last_name2 = my_user.user_last_name1
+    my_user.user_last_name1 = last_name
+    my_user.user_last_kind = last_kind
     my_user.save()
     return HttpResponse('0')
 

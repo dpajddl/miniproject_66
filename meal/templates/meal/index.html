@@ -121,7 +121,7 @@
                 <div class="media-content">
                   <div class="content">
                     <h1 class="title is-size-4">내 위치</h1>
-                    <div id="map" style="width:350px;height:200px;"></div>
+                    <div id="map" style="width:300px;height:200px;"></div>
                     <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
                     <script>
                         x = {{ request.session.user.user_loc_x }}
@@ -172,12 +172,24 @@
                 </figure>
                 <div class="media-content">
                   <div class="content">
-                    <h1 class="title is-size-4">후원 계좌</h1><br>
-                    <p class="is-size-5 subtitle">
-                      <strong>국민은행</strong> 135702-04-150445
-                      <strong></strong>
-                      <strong></strong>
-                    </p>
+                    <h1 class="title is-size-4">내가 간 식당</h1>
+                    <table>
+                      <tr>
+                      <td>{{last1}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{last2}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{last3}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{last4}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{last5}}</td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </article>
