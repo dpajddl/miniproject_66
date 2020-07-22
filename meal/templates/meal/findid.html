@@ -39,9 +39,28 @@
                   이메일을 입력하세요: <input class="input is-medium" type="text" placeholder="example@example.com" id = "findid_pw">
                 </div>
               </div>
-              <a id = loginbtn class="button is-block is-primary is-fullwidth is-medium">아이디 찾기</a>
+              <a id = findid_btn class="button is-block is-primary is-fullwidth is-medium">아이디 찾기</a>
             </form>
           </div>
     </section>
+    <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('[id = findid_btn]').click(() => {
+      $.ajax({
+          type : 'post',
+          url : '../../findid_function/',
+          data : {
+              'findid_name' : $('[id = findid_name]').val(),
+              'findid_email' : $('[id = findid_email]').val(),         
+              'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
+          },
+          // success: function(res){
+          //     if (res == 0) {alert("회원가입 완료!"); location.href = "/"}
+          //     else if (res == 1) {alert("이미 사용중인 ID입니다.")}
+          //     else if (res == 2) {alert("주소를 확인해 주세요")}
+          // },
+        });
+      } )
+    </script>
 </body>
 </html>
