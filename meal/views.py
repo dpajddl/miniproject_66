@@ -30,7 +30,7 @@ def search_all(request):
     # startRow = 0
     # endRow = 0
     
-    # restaurant_all = request.session['rest']
+    restaurant_all = request.session['rest']
     # restaurant_all = restaurant_all[0:10]
 
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
