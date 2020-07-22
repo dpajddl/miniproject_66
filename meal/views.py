@@ -209,6 +209,21 @@ def findpw_function(request):
     # 해당 데이터만 조회
     try:
         user = User.objects.get(user_nick=findpw_nick, user_email=findpw_email, user_id = findpw_id)
-        return JsonResponse(model_to_dict(user), safe=False)
+        user=model_to_dict(user)
+        return JsonResponse(user, safe=False)
     except:
         return JsonResponse({'result':'fail'}, safe=False)
+
+def changepw_function(request):
+    change_pw = request.POST.get('change_pw')
+    myuser = request.POST.get('user')
+    print(myuser)
+    user_id = User.objects.get(user_id = myuser['user_id'])
+    change_pw = change_pw.encode('utf-8')   # 회원가입 시 입력된 패스워드를 바이트 형태로 인코딩    
+    change_pw_crypt = bcrypt.hashpw(change_pw, bcrypt.gensalt())  # 암호화된 비밀번호 생성
+    change_pw_crypt = change_pw_crypt.decode('utf-8')             # DB에 저장할 수 있는 유니코드 문자열 형태로 디코딩
+    user.user_pw = change_pw
+    user.save()
+    return HttpResponse('0')
+
+
