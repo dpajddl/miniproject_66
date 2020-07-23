@@ -34,5 +34,6 @@ urlpatterns = [
     path('mylocation_function/', views.mylocation_function, name = 'mylocation_function'),
     path('having_function/', views.having_function, name = 'having_function'),
     path('findid_function/', views.findid_function, name = 'findid_function'),
+    path('logout_function/', views.logout_function, name='logout_function')
 
 ]
