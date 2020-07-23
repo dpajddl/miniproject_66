@@ -37,5 +37,4 @@ urlpatterns = [
     path('logout_function/', views.logout_function, name='logout_function'),
     path('findpw_function/', views.findpw_function, name = 'findpw_function'),
     path('changepw_function/', views.changepw_function, name = 'changepw_function'),
-
 ]
