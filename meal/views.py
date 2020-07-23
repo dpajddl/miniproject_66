@@ -71,6 +71,11 @@ def findid(request):
 def findpw(request):
     return render(request, 'meal/findpw.html', {})
 
+def logout_function(request):
+    request.session.clear()
+    return render(request, 'meal/index_login.html', {})
+
+
 def login_function(request) :
     ln = 0
     login_id = request.POST.get('login_id')
@@ -121,7 +126,7 @@ def signup_function(request) :
     signup_nick = request.POST.get('signup_nick')
     signup_ad = request.POST.get('signup_ad')
     user_all = User.objects.all()
-    signup_pw = signup_pw.encode('utf-8')   # 회원가입 시 입력된 패스워드를 바이트 형태로 인코딩    
+    signup_pw = signup_pw.encode('utf-8')                      # 회원가입 시 입력된 패스워드를 바이트 형태로 인코딩    
     signup_pw_crypt = bcrypt.hashpw(signup_pw, bcrypt.gensalt())  # 암호화된 비밀번호 생성
     signup_pw_crypt = signup_pw_crypt.decode('utf-8')             # DB에 저장할 수 있는 유니코드 문자열 형태로 디코딩
     for i in range(len(user_all)):
