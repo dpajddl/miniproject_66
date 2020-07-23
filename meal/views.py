@@ -172,14 +172,40 @@ def mylocation_function(request) :
     if docs == []:
         return HttpResponse('1')
     else :
-     
         xx=docs[0]['x']
         yy=docs[0]['y']
-
         my_user.user_loc_x = xx
         my_user.user_loc_y = yy
         my_user.save()
+<<<<<<< HEAD
         
+=======
+        url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
+        apikey = "0fd8917caae3b9798b5233596bbdd2e7"
+        x = my_user.user_loc_x
+        y = my_user.user_loc_y
+        restaurant_all=[]
+        r = requests.get( url, params = {'query':'식당',
+                'category_group_code':'FD6',
+            'x':x,
+            'y':y,
+            'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+        obj=r.json()
+        counts=obj['meta']['pageable_count']
+        total_pages= counts//15 if counts%15 == 0 else counts //15+1
+        for page in range(total_pages):
+            r = requests.get( url, params = {'query':'식당',
+                'category_group_code':'FD6',
+                'x': x,
+            'y':y,
+            'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+            obj=r.json()
+            docs=obj['documents']
+            for doc in docs:
+                restaurant_all.append(doc)
+
+                request.session['rest'] = restaurant_all
+>>>>>>> 20846e66881ae1e356288dca802370d12a639b4c
         return HttpResponse('0')
 
 def having_function(request):
@@ -206,3 +232,30 @@ def findid_function(request):
         # return render(request, 'meal/findid.html', {'user':user_all[i]}) 
     except:
         return JsonResponse({'result':'fail'}, safe=False)
+
+def findpw_function(request):
+    findpw_nick = request.POST.get('findpw_nick')
+    findpw_email = request.POST.get('findpw_email')
+    findpw_id = request.POST.get('findpw_id')
+
+    # 해당 데이터만 조회
+    try:
+        user = User.objects.get(user_nick=findpw_nick, user_email=findpw_email, user_id = findpw_id)
+        user=model_to_dict(user)
+        return JsonResponse(user, safe=False)
+    except:
+        return JsonResponse({'result':'fail'}, safe=False)
+
+def changepw_function(request):
+    change_pw = request.POST.get('change_pw')
+    myuser = request.POST.get('user')
+    print(myuser)
+    user_id = User.objects.get(user_id = myuser['user_id'])
+    change_pw = change_pw.encode('utf-8')   # 회원가입 시 입력된 패스워드를 바이트 형태로 인코딩    
+    change_pw_crypt = bcrypt.hashpw(change_pw, bcrypt.gensalt())  # 암호화된 비밀번호 생성
+    change_pw_crypt = change_pw_crypt.decode('utf-8')             # DB에 저장할 수 있는 유니코드 문자열 형태로 디코딩
+    user.user_pw = change_pw
+    user.save()
+    return HttpResponse('0')
+
+

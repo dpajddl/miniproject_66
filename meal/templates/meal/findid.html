@@ -65,13 +65,13 @@
         if(res.result) {
           alert("입력하신 닉네임 또는 이메일이 올바르지 않습니다.")
         } else {
-          if(confirm("ID는" + res.user_id + "입니다."))   
+          if(confirm("ID는" + res.user_id + "입니다.")) 
             {location.href = "../../"}
           else  
 	          return false;
         }
-      },
-    }); 
+      }
+    })
   })
 </script>
 </body>
