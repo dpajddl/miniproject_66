@@ -74,7 +74,6 @@
               if(res.result) {
                 alert("입력하신 닉네임 또는 이메일 또는 아이디가 올바르지 않습니다.")
               } else {
-                print(res)
                 var new_pw = prompt("변경할 패스워드를 입력해주세요:", "")
                 if(confirm("변경할 패스워드가"+new_pw+"가 맞나요?"))
                   $.ajax({
