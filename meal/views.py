@@ -177,9 +177,6 @@ def mylocation_function(request) :
         my_user.user_loc_x = xx
         my_user.user_loc_y = yy
         my_user.save()
-<<<<<<< HEAD
-        
-=======
         url = "https://dapi.kakao.com/v2/local/search/keyword.json?"
         apikey = "0fd8917caae3b9798b5233596bbdd2e7"
         x = my_user.user_loc_x
@@ -205,7 +202,6 @@ def mylocation_function(request) :
                 restaurant_all.append(doc)
 
                 request.session['rest'] = restaurant_all
->>>>>>> 20846e66881ae1e356288dca802370d12a639b4c
         return HttpResponse('0')
 
 def having_function(request):
