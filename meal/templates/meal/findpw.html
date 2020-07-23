@@ -80,8 +80,8 @@
                     type : 'post',
                     url : '/changepw_function/',
                     data : {
-                        'change_pw' : $(new_pw),
-                        'user_id':$(res.user_id),
+                        'change_pw' : new_pw,
+                        'user_id':res.user_id,
                         'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
                   },
                   success:function(res){
