@@ -75,20 +75,21 @@
                 alert("입력하신 닉네임 또는 이메일 또는 아이디가 올바르지 않습니다.")
               } else {
                 var new_pw = prompt("변경할 패스워드를 입력해주세요:", "")
-                alert("변경하실 패스워드가" + new_pw + "가 맞나요?")
-                $.ajax({
-                  type : 'post',
-                  url : '/changepw_function/',
-                  data : {
-                      'change_pw' : $(new_pw),
-                      'user':$(res.user),
-                      'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
-                },
-                success:function(res){
-                  if(res==0){alert("비밀번호 변경 완료!"); location.href = "/"}
-  
-                }
-              })
+                if(confirm("변경할 패스워드가"+new_pw+"가 맞나요?"))
+                  $.ajax({
+                    type : 'post',
+                    url : '/changepw_function/',
+                    data : {
+                        'change_pw' : $(new_pw),
+                        'user_id':$(res.user_id),
+                        'csrfmiddlewaretoken' : $("[name = csrfmiddlewaretoken]").val()
+                  },
+                  success:function(res){
+                    if(res==0){alert("비밀번호 변경 완료!"); location.href = "/"}
+                  }
+                })
+               else  
+                  return false;
               }
           }
         })
