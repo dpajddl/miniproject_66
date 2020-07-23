@@ -10,6 +10,7 @@ import sys
 from json import JSONEncoder
 import requests
 import bcrypt
+import re
 
 def index_login(request):
     return render(request, 'meal/index_login.html', {})
@@ -133,6 +134,11 @@ def signup_function(request) :
         if user_all[i].user_id == signup_id:
             return HttpResponse('1')
             s_up = s_up + 1
+    p = re.compile('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+    if(p.match(signup_email) != None):
+        pass
+    else : 
+        return HttpResponse('3')
     if s_up == 0:
         param = {'query': signup_ad}
         header = {'Authorization' : 'KakaoAK d4be7b479f4b4cbd99bd19ae87f88b4b'}
