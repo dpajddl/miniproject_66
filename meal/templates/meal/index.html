@@ -25,16 +25,51 @@
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.1);
         }
     </style>
-    <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class = "title is-size 6">
-              <strong>{{ request.session.user.user_nick}}님 반갑습니다. </strong>
-              <a class="button is-primary is-normal" onclick="location.href='../'" >로그아웃</a>
-            </h1>
+      <div class="container">
+        <div class="columns is-multiline">
+          <div class="column is-one-third is-text-centered">
+              <figure class="media-left">
+                <span class="icon">
+                  <i class="has-text-warning fas fa-columns fa-lg"></i>
+                </span>
+              </figure>
+              <div class="media-content">
+                <div class="content">                  <br><br>
+                  <h1 class = "title is-size 6" margin:50px>
+                    <strong>{{ request.session.user.user_nick}}님 반갑습니다. </strong>
+                  </h1>
+                </div>
+              </div>
+
+          </div>
+    
+          <div class="column is-half">
+              <figure class="media-left">
+                <span class="icon has-text-info">
+                  <i class="fab fa-lg fa-wpforms"></i>
+                </span>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <img src="/static/meal/index/team6.png" width=400 height=150>
+                </div>
+              </div>
+
+          </div>
+          <div class="content has-text-centered">
+            <br><br><br><br><br>
+            <a margin:50px class="button is-primary is-normal" onclick="location.href='../'" >로그아웃</a>
+          </div>
+
+            </article>
           </div>
         </div>
-    </section>
+      </div>
+
+
+
+
+
     <section class="section has-background-light">
     <div class="container">
         <div class="columns">
@@ -207,7 +242,8 @@
                   <div class="content">
                     <h1 class="title is-size-4">Thanks to...</h1>
                     <div>
-                      <img src="/static/meal/index/kfq.jpeg" width=70 height=70><br>
+                      <img src="/static/meal/index/kfq.jpeg" width=70 height=70>
+                      <img src="/static/meal/index/kakao.png" width=120><br>
                       <img src="/static/meal/index/hangaram.png" width=200 height=32>
                       <img src="/static/meal/index/ggoreb.png" width=200 height=47>
                     </div>
