@@ -43,7 +43,7 @@
                                 <li><a  class="subtitle is size-1" href="/meal/">메인으로</a></li>
                                 <li><a  class="subtitle is size-1" href="/meal/search_all/">식당조회</a></li>
                                 <li><a  class="subtitle is size-1" href="/meal/random_lunch/">오점뭐</a></li>
-                                <li><a class="subtitle is size-1" href="/index">로그아웃</a></li>
+                                <li><a class="subtitle is size-1" href="../..">로그아웃</a></li>
                             </ul>
                         </div>
                     </div>
@@ -69,8 +69,7 @@
 
                         <figure>
                             <div id="map" style="width:500px;height:400px;"></div>
-                            <input type="text" id="sample5_address" placeholder="주소"> 
-                            <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                            
                             <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
                             <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f&libraries=services"></script>
                             <script>
@@ -150,10 +149,20 @@
                         <h1 class="title is-2">
                             새 주소를 입력해 주세요
                         </h1>
-                            <input class="input is-medium" type="text" placeholder="New Place" id = "mylocation_ad" width = "400px">
+                            <input class="input is-medium" type="text" id="sample5_address" placeholder="주소" width = "400px"> 
+                            <!-- <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                            <input class="input is-medium" type="text" placeholder="New Place" id = "mylocation_ad" width = "400px"> -->
                         <br>
                         <br>
                         <p class="has-text-centered">
+                            <a class="button is-warning is-medium" onclick="sample5_execDaumPostcode()" value="주소 검색" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
+                            onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
+                                주소 검색
+                            </a>
+                        
+                        
+                       
+                        
                             <a class="button is-warning is-medium" id ="update_btn" onmouseover="this.style.backgroundColor='white', this.style.color='Goldenrod', this.style.borderColor='Goldenrod'"
                             onmouseout="this.style.backgroundColor='', this.style.color='', this.style.borderColor=''">
                                 주소 변경
