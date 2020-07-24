@@ -24,18 +24,8 @@ def index(request):
     last5 = my_user.user_last_name5
     return render(request, 'meal/index.html', {'last1' : last1, 'last2' : last2, 'last3' : last3, 'last4' : last4, 'last5' : last5, 'my_user' : my_user})
 
-def search_all(request):
-    # 페이징
-    # 1 - 현재 페이지 정보 get
-    page = request.GET.get('page')
-
-    # 2 - page에 해당하는 식당의 (리스트 상의) 시작번호와 끝번호를 알아내기
-    # startRow = 0
-    # endRow = 0
-    
+def search_all(request):    
     restaurant_all = request.session['rest']
-    # restaurant_all = restaurant_all[0:10]
-
     return render(request, 'meal/search_all.html', {'restaurant_all' : restaurant_all})
 
 
@@ -49,6 +39,10 @@ def random_lunch(request):
         i = randint(0, len(random_lunch)-1)
         pick = random_lunch[i]
         if my_user.user_last_kind == pick['id']:
+            pass
+        elif my_user.user_last_name2 == pick['place_name']:
+            pass
+        elif my_user.user_last_name3 == pick['place_name']:
             pass
         else :
             request.session['pick'] = pick
@@ -161,12 +155,6 @@ def signup_function(request) :
         return HttpResponse('0')
     
 
-# def last_kind_function(request) :
-#     pick_kind = request.get('pick_kind')
-#     request.session.user.user_last_kind = pick_kind
-#     user.save()
-#     return HttpResponse('0')
-
 def mylocation_function(request) :
     my_user = User.objects.get(user_id = request.session['user']['user_id'])
     mylocation_ad = request.GET.get('mylocation_ad')
@@ -231,7 +219,6 @@ def findid_function(request):
     try:
         user = User.objects.get(user_nick=findid_nick, user_email=findid_email)
         return JsonResponse(model_to_dict(user), safe=False)
-        # return render(request, 'meal/findid.html', {'user':user_all[i]}) 
     except:
         return JsonResponse({'result':'fail'}, safe=False)
 
@@ -240,7 +227,6 @@ def findpw_function(request):
     findpw_email = request.POST.get('findpw_email')
     findpw_id = request.POST.get('findpw_id')
 
-    # 해당 데이터만 조회
     try:
         user = User.objects.get(user_nick=findpw_nick, user_email=findpw_email, user_id = findpw_id)
         user=model_to_dict(user)
