@@ -66,9 +66,11 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <div class="columns is-4 is-multiline" >
-                    <iframe src="{{pick.place_url}}" frameborder="1" width="900px" height="600px"></iframe>                             
+                    <iframe src="{{pick.place_url}}" frameborder="1" width="900px" height="600px"></iframe>   
+                                               
                     <div style = "margin-left: 50px; margin-top: 80px">
-                        <div  id="map" style="width:400px;height:300px;"></div><br>
+                        <!-- <div  id="map" style="width:400px;height:300px;"></div><br> -->
+                        <iframe src="https://map.kakao.com/?sName=가산디지털단지역&eName={{pick.place_name}}" frameborder="1" width="900px" height="600px"></iframe>
                         <a class="button is-primary is-medium is-outlined" id = "enjoybtn">
                             좋아! 오늘은 이거다!
                         </a><br><br>
@@ -112,6 +114,7 @@
         // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
         var iwContent = 
         '<div style="padding:5px;"><a href="{{pick.place_url}}" style="color:blue" target="_blank">{{pick.place_name}}</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        
         iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
         var infowindow = new kakao.maps.InfoWindow({
             content : iwContent,
