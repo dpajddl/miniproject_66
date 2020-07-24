@@ -144,7 +144,7 @@ def signup_function(request) :
         else :
             xx=docs[0]['x']
             yy=docs[0]['y']
-            add = doc[0]['place_name']
+            add = docs[0]['place_name']
             user_loc_x = xx
             user_loc_y = yy
             user_loc_add = add
