@@ -90,7 +90,7 @@ def login_function(request) :
                         'category_group_code':'FD6',
                     'x':x,
                     'y':y,
-                    'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+                    'radius':200}, headers={'Authorization' : 'KakaoAK ' + apikey } )
                 obj=r.json()
                 counts=obj['meta']['pageable_count']
                 total_pages= counts//15 if counts%15 == 0 else counts //15+1
@@ -99,7 +99,7 @@ def login_function(request) :
                         'category_group_code':'FD6',
                         'x': x,
                     'y':y,
-                    'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+                    'radius':200,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
                     obj=r.json()
                     docs=obj['documents']
                     for doc in docs:
@@ -185,7 +185,7 @@ def mylocation_function(request) :
                 'category_group_code':'FD6',
             'x':x,
             'y':y,
-            'radius':300}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+            'radius':200}, headers={'Authorization' : 'KakaoAK ' + apikey } )
         obj=r.json()
         counts=obj['meta']['pageable_count']
         total_pages= counts//15 if counts%15 == 0 else counts //15+1
@@ -194,7 +194,7 @@ def mylocation_function(request) :
                 'category_group_code':'FD6',
                 'x': x,
                 'y':y,
-                'radius':300,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
+                'radius':200,'page':page+1}, headers={'Authorization' : 'KakaoAK ' + apikey } )
             obj=r.json()
             docs=obj['documents']
             for doc in docs:
