@@ -62,7 +62,9 @@
           <div class="field">
             <label class="label">Address</label>
             <div class="control has-icons-right">
-              <input class="input" type="text" id = "signup_ad">
+              <input class="input" type="text" id = "signup_ad" placeholder="주소">
+              <a onclick="sample5_execDaumPostcode()" value="주소 검색" >주소검색</a>
+          
               <span class="icon is-small is-right">
                 <i class="fa fa-envelope"></i>
               </span>
@@ -81,7 +83,21 @@
 
       </div>
     </form>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+      function sample5_execDaumPostcode() {
+          new daum.Postcode({
+              oncomplete: function(data) {
+                  var addr = data.address; // 최종 주소 변수
+  
+                  // 주소 정보를 해당 필드에 넣는다.
+                  document.getElementById("signup_ad").value = addr;
+              }
+          }).open();
+      }
+    </script>
     <script>
       $('[id = signup_btn]').click(() => {
       $.ajax({  
