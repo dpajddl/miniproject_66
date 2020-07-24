@@ -66,12 +66,17 @@
             <div class="container has-text-centered">
                 <div class="columns is-vcentered">
                     <div class="column is-5">
+
                         <figure>
                             <div id="map" style="width:500px;height:400px;"></div>
-                            <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f"></script>
+                            <input type="text" id="sample5_address" placeholder="주소"> 
+                            <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                            <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+                            <script type ="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=849fd1b1d68908f0370f8b19d303280f&libraries=services"></script>
                             <script>
                                 x = {{ my_user.user_loc_x }}
                                 y = {{ my_user.user_loc_y }}
+
                                 var mapContainer = document.getElementById('map');// 지도를 표시할 div 
                                 var mapOption = {
                                         center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
@@ -80,28 +85,61 @@
                                     }; 
                         
                                 // 지도를 생성한다 
+                                
                                 var map = new kakao.maps.Map(mapContainer, mapOption); 
+                                var geocoder = new daum.maps.services.Geocoder();
                                 var markerPosition  = new kakao.maps.LatLng(y, x); //마커표시 위치 ->수정
 
                                 // 마커를 생성합니다
+                                
                                 var marker = new kakao.maps.Marker({
                                     position: markerPosition
                                 });
                                 marker.setMap(map);
+                                function sample5_execDaumPostcode() {
+                                    new daum.Postcode({
+                                        oncomplete: function(data) {
+                                            var addr = data.address; // 최종 주소 변수
+                            
+                                            // 주소 정보를 해당 필드에 넣는다.
+                                            document.getElementById("sample5_address").value = addr;
+                                            // 주소로 상세 정보를 검색
+                                            geocoder.addressSearch(data.address, function(results, status) {
+                                                // 정상적으로 검색이 완료됐으면
+                                                if (status === daum.maps.services.Status.OK) {
+                            
+                                                    var result = results[0]; //첫번째 결과의 값을 활용
+                            
+                                                    // 해당 주소에 대한 좌표를 받아서
+                                                    var coords = new daum.maps.LatLng(result.y, result.x);
+                                                    // 지도를 보여준다.
+                                                    mapContainer.style.display = "block";
+                                                    map.relayout();
+                                                    // 지도 중심을 변경한다.
+                                                    map.setCenter(coords);
+                                                    // 마커를 결과값으로 받은 위치로 옮긴다.
+                                                    marker.setPosition(coords)
+                                                }
+                                            });
+                                        }
+                                    }).open();
+                                }
+                                
 
                         
         
-                                var circle = new kakao.maps.Circle({
-                                    map: map, // 원을 표시할 지도 객체
-                                    center: new kakao.maps.LatLng(y, x), // 지도의 중심 좌표
-                                    radius : 200, // 원의 반지름 (단위 : m)
-                                    fillColor: '#acb3f0', // 채움 색
-                                    fillOpacity: 0.5, // 채움 불투명도
-                                    strokeWeight: 2, // 선의 두께
-                                    strokeColor: '#0c4bbd', // 선 색
-                                    strokeOpacity: 0.9, // 선 투명도 
-                                    strokeStyle: 'solid' // 선 스타일
-                                });   
+                                //var circle = new kakao.maps.Circle({
+                                //    map: map, // 원을 표시할 지도 객체
+                                //    center: new kakao.maps.LatLng(y, x), // 지도의 중심 좌표
+                                //    radius : 200, // 원의 반지름 (단위 : m)
+                                 //   fillColor: '#acb3f0', // 채움 색
+                                 //   fillOpacity: 0.5, // 채움 불투명도
+                                 //   strokeWeight: 2, // 선의 두께
+                                 //   strokeColor: '#0c4bbd', // 선 색
+                                  //  strokeOpacity: 0.9, // 선 투명도 
+                                 //   strokeStyle: 'solid' // 선 스타일
+                                //}); 
+
                         
                             </script>
                           
@@ -134,7 +172,7 @@
             type : 'get',
             url : '../../mylocation_function/',
             data : {
-            'mylocation_ad' : $('[id = mylocation_ad]').val()
+            'mylocation_ad' : $('[id = sample5_address]').val()
             },
             success: function(res){
                 if (res == 0) {window.location.reload()}
@@ -143,6 +181,10 @@
         });
       } )
     </script>
+    
+
+
+    
 </body>
 
 </html>
