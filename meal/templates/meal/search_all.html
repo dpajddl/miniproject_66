@@ -43,6 +43,7 @@
                                 <li><a  class="subtitle is size-1" href="/meal/">메인으로</a></li>
                                 <li><a  class="subtitle is size-1" href="/meal/random_lunch/">오점뭐</a></li>
                                 <li><a  class="subtitle is size-1" href="/meal/mylocation/">위치변경</a></li>
+                                <li><a class="subtitle is size-1" href="../..">로그아웃</a></li>
                             </ul>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
                         {% if restaurant_all %}
                             {% for r in restaurant_all %}
                             <tr>
-                                <td><a href="{{r.place_url}}">{{r.place_name}}</a></td>
+                                <td><a href="{{r.place_url}}" onclick="window.open(this.href, '_blanck', 'width=900, height=550'); return false">{{r.place_name}}</a></td>
                                 <td>{{r.road_address_name}}</td>
                                 <td>{{r.phone}}</td>
                                 <td>{{r.category_name}}</td>
