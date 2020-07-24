@@ -14,7 +14,7 @@ class User(models.Model):
     user_last_name5 = models.CharField(max_length = 500, default = "오점뭐!")
     user_loc_x = models.FloatField()
     user_loc_y = models.FloatField()
-
+    user_loc_add = models.CharField(max_length = 500, default = '우림라이온스밸리A')
 
 
 
